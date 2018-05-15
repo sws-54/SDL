@@ -28,13 +28,28 @@ int main(int argc, char* args[])
 
 	LoadMedia();
 
-	// fast surface copy to a destination surface
-	SDL_BlitSurface(Image, nullptr, Surface, nullptr);
+	// quit flag
+	bool Quit = false;
 
-	// function to copy the window surface to the window
-	SDL_UpdateWindowSurface(Window);
+	// event handeler 
+	SDL_Event Event; // an enumeration of the types of events that can be delivered.
 
-	SDL_Delay(2000);
+	// main loop
+	while (Quit != true)
+	{
+		// event loop
+		while (SDL_PollEvent(&Event) != 0) //  Returns 1 if there is a pending event or 0 if there are none available.
+		{
+			if (Event.type == SDL_QUIT)
+				Quit = true;
+		}
+
+		// fast surface copy to a destination surface
+		SDL_BlitSurface(Image, nullptr, Surface, nullptr);
+
+		// function to copy the window surface to the window
+		SDL_UpdateWindowSurface(Window);
+	}
 
 	End();
 
